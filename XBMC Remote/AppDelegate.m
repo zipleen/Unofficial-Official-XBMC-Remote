@@ -3768,4 +3768,31 @@ int Wake_on_LAN(char *ip_broadcast,const char *wake_mac){
                                                     error:NULL];
 }
 
+-(void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply {
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"WatchKitNotification" object:nil];
+    NSMutableArray *tempArray;
+    NSNumber *lastServerSetting = [NSNumber numberWithInt:-1];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *dataFilePath = [documentsDirectory stringByAppendingPathComponent:@"serverList_saved.dat"];
+    NSFileManager *fileManager1 = [NSFileManager defaultManager];
+    if([fileManager1 fileExistsAtPath:dataFilePath]) {
+        tempArray = [NSKeyedUnarchiver unarchiveObjectWithFile:dataFilePath];
+        
+    }
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    int lastServer;
+    if ([userDefaults objectForKey:@"lastServer"]!=nil){
+        lastServer=[[userDefaults objectForKey:@"lastServer"] intValue];
+        if (lastServer > -1 && lastServer < [tempArray count]){
+            lastServerSetting = [NSNumber numberWithInt:lastServer];
+        }
+    }
+    
+    reply(@{@"servers":tempArray, @"lastServer":lastServerSetting});
+}
+
 @end
