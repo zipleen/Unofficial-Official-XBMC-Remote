@@ -763,6 +763,7 @@
 		F0366D721AFED43700CCC8A0 /* DSJSONRPC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F74776A151E5E8600EF78AD /* DSJSONRPC.m */; };
 		F0366D731AFED43B00CCC8A0 /* DSJSONRPCError.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F74776C151E5E8600EF78AD /* DSJSONRPCError.m */; };
 		F0366D741AFED43E00CCC8A0 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F74776E151E5E8600EF78AD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		F0B826B71AFFCAF800E417F0 /* ServerController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0B826B61AFFCAF800E417F0 /* ServerController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1663,6 +1664,8 @@
 		F0366D6F1AFED16600CCC8A0 /* KodiCommands.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KodiCommands.m; sourceTree = "<group>"; };
 		F0366D751AFEE23400CCC8A0 /* Kodi Remote WatchKit Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Kodi Remote WatchKit Extension.entitlements"; sourceTree = "<group>"; };
 		F0366D761AFEE28500CCC8A0 /* Kodi Remote.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Kodi Remote.entitlements"; sourceTree = "<group>"; };
+		F0B826B51AFFCAF800E417F0 /* ServerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerController.h; sourceTree = "<group>"; };
+		F0B826B61AFFCAF800E417F0 /* ServerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2756,6 +2759,8 @@
 				F0366D471AFEB36600CCC8A0 /* Supporting Files */,
 				F0366D6E1AFED16600CCC8A0 /* KodiCommands.h */,
 				F0366D6F1AFED16600CCC8A0 /* KodiCommands.m */,
+				F0B826B51AFFCAF800E417F0 /* ServerController.h */,
+				F0B826B61AFFCAF800E417F0 /* ServerController.m */,
 			);
 			path = "Kodi Remote WatchKit Extension";
 			sourceTree = "<group>";
@@ -3675,6 +3680,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F0B826B71AFFCAF800E417F0 /* ServerController.m in Sources */,
 				F0366D721AFED43700CCC8A0 /* DSJSONRPC.m in Sources */,
 				F0366D731AFED43B00CCC8A0 /* DSJSONRPCError.m in Sources */,
 				F0366D4B1AFEB36600CCC8A0 /* InterfaceController.m in Sources */,

@@ -39,7 +39,8 @@
                                 <action selector="remoteDown" destination="AgC-eL-Hgc" id="0zC-w3-HEc"/>
                             </connections>
                         </button>
-                        <button height="20" alignment="left" title="Back" id="eeP-gf-C8p">
+                        <button height="16" alignment="left" title="Back" id="eeP-gf-C8p">
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="remoteBack" destination="AgC-eL-Hgc" id="WpU-bV-hQj"/>
                             </connections>
@@ -52,10 +53,33 @@
             </objects>
             <point key="canvasLocation" x="164" y="204.49000000000001"/>
         </scene>
-        <!--Interface Controller-->
+        <!--Server Controller-->
         <scene sceneID="yc1-n1-weL">
             <objects>
-                <controller id="eRo-HV-6GW"/>
+                <controller id="eRo-HV-6GW" customClass="ServerController">
+                    <items>
+                        <table alignment="left" id="BEP-iv-cAg">
+                            <items>
+                                <tableRow id="Mqg-Fx-W5F">
+                                    <group key="rootItem" width="1" alignment="left" id="REt-gj-k0x"/>
+                                </tableRow>
+                            </items>
+                        </table>
+                    </items>
+                    <variation key="default">
+                        <mask key="items">
+                            <exclude reference="BEP-iv-cAg"/>
+                        </mask>
+                    </variation>
+                    <variation key="device=watch42mm">
+                        <mask key="items">
+                            <include reference="BEP-iv-cAg"/>
+                        </mask>
+                    </variation>
+                    <connections>
+                        <outlet property="servers" destination="BEP-iv-cAg" id="A1P-Gh-2pa"/>
+                    </connections>
+                </controller>
             </objects>
             <point key="canvasLocation" x="400" y="205"/>
         </scene>

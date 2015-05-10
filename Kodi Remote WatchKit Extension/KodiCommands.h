@@ -9,5 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @interface KodiCommands : NSObject
-+(void)GUIAction:(NSString *)action params:(NSDictionary *)params httpAPIcallback:(NSString *)callback;
+@property (nonatomic, readwrite) NSMutableArray *serverList;
+@property (nonatomic, assign) BOOL serverOnLine;
+@property (nonatomic, assign) BOOL serverTCPConnectionOpen;
+@property (nonatomic, assign) int serverVersion;
+@property (nonatomic, assign) int serverMinorVersion;
+@property (nonatomic, assign) int serverVolume;
+@property (retain, nonatomic) NSString *serverName;
+
++ (KodiCommands *)getInstance;
+- (void)initServer;
+- (void)selectServer:(NSInteger)index;
+- (void)GUIAction:(NSString *)action params:(NSDictionary *)params httpAPIcallback:(NSString *)callback;
+- (void)playerStep:(NSString *)step musicPlayerGo:(NSString *)musicAction;
 @end

@@ -11,46 +11,31 @@
 #import "GlobalData.h"
 
 @interface InterfaceController()
-@property (nonatomic, readwrite) NSMutableArray *arrayServerList;
+@property (nonatomic, weak) KodiCommands *kodiCommands;
 @end
 
 
 @implementation InterfaceController
+@synthesize kodiCommands;
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-    [self initServer];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(serverUpdated:)
+                                                 name:@"ServersUpdated"
+                                               object:nil];
+    
+    kodiCommands = [KodiCommands getInstance];
+    
     // Configure interface objects here.
 }
 
-- (void)initServer {
-    [WKInterfaceController openParentApplication:[NSDictionary dictionaryWithObjectsAndKeys:nil] reply:^(NSDictionary *replyInfo, NSError *error) {
-        NSMutableArray *servers = replyInfo[@"servers"];
-        [self setArrayServerList:servers];
-        [self selectServer:[replyInfo[@"lastServer"] integerValue]];
-    }];
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-static inline BOOL IsEmpty(id obj) {
-    return obj == nil
-    || ([obj respondsToSelector:@selector(length)]
-        && [(NSData *)obj length] == 0)
-    || ([obj respondsToSelector:@selector(count)]
-        && [(NSArray *)obj count] == 0);
-}
-
-- (void)selectServer:(NSInteger)index {
-    GlobalData *obj=[GlobalData getInstance];
-    NSDictionary *item = [_arrayServerList objectAtIndex:index];
-    obj.serverDescription = IsEmpty([item objectForKey:@"serverDescription"]) ? @"" : [item objectForKey:@"serverDescription"];
-    obj.serverUser = IsEmpty([item objectForKey:@"serverUser"]) ? @"" : [item objectForKey:@"serverUser"];
-    obj.serverPass = IsEmpty([item objectForKey:@"serverPass"]) ? @"" : [item objectForKey:@"serverPass"];
-    obj.serverIP = IsEmpty([item objectForKey:@"serverIP"]) ? @"" : [item objectForKey:@"serverIP"];
-    obj.serverPort = IsEmpty([item objectForKey:@"serverPort"]) ? @"" : [item objectForKey:@"serverPort"];
-    obj.serverHWAddr = IsEmpty([item objectForKey:@"serverMacAddress"]) ? @"" : [item objectForKey:@"serverMacAddress"];
-    obj.preferTVPosters = [[item objectForKey:@"preferTVPosters"] boolValue];
-    obj.tcpPort = [[item objectForKey:@"tcpPort"] intValue];
-    [self setTitle:obj.serverDescription];
+- (void)serverUpdated:(NSNotification*)note {
+    [self setTitle:[GlobalData getInstance].serverDescription];
 }
 
 - (void)willActivate {
@@ -63,22 +48,26 @@ static inline BOOL IsEmpty(id obj) {
     [super didDeactivate];
 }
 - (IBAction)remoteRight {
-    [KodiCommands GUIAction:@"Input.Right" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
+    [kodiCommands GUIAction:@"Input.Right" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
+    [kodiCommands playerStep:@"smallforward" musicPlayerGo:@"next"];
 }
 - (IBAction)remoteUp {
-    [KodiCommands GUIAction:@"Input.Up" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
+    [kodiCommands GUIAction:@"Input.Up" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
+    [kodiCommands playerStep:@"bigforward" musicPlayerGo:nil];
 }
 - (IBAction)remoteLeft {
-    [KodiCommands GUIAction:@"Input.Left" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
+    [kodiCommands GUIAction:@"Input.Left" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
+    [kodiCommands playerStep:@"smallbackward" musicPlayerGo:@"previous"];
 }
 - (IBAction)remoteDown {
-    [KodiCommands GUIAction:@"Input.Down" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
+    [kodiCommands GUIAction:@"Input.Down" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
+    [kodiCommands playerStep:@"bigbackward" musicPlayerGo:nil];
 }
 - (IBAction)remoteEnter {
-    [KodiCommands GUIAction:@"Input.Select" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
+    [kodiCommands GUIAction:@"Input.Select" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
 }
 - (IBAction)remoteBack {
-    [KodiCommands GUIAction:@"Input.Back" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
+    [kodiCommands GUIAction:@"Input.Back" params:[NSDictionary dictionaryWithObjectsAndKeys:nil] httpAPIcallback:nil];
 }
 
 @end
